@@ -3023,6 +3023,7 @@ def parse_faq_scholarships_section(driver, URLS):
 def scrape_mba_colleges():
     driver = create_driver()
     all_data = []
+    c_count = 81
 
     try:
         for base_url in BASE_URL:
@@ -3032,7 +3033,8 @@ def scrape_mba_colleges():
            
 
             college_data = {
-                "college_url": base_url,
+                "college_details":{
+                "id":f"college_{c_count:03d}",
                 "college_info":{
                  "college_info":scrape_college_info(driver,URLS),
                  "college_info_program":scrape_college_infopro(driver,URLS),
@@ -3077,9 +3079,11 @@ def scrape_mba_colleges():
                 },
                 
                 "scholarships":parse_faq_scholarships_section(driver,URLS),
-        }
+            }
+            }
 
             all_data.append(college_data)
+            c_count += 1
 
     finally:
         driver.quit()
