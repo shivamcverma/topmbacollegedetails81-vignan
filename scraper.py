@@ -92,6 +92,16 @@ def create_driver():
         "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
     )
 
+    # Important for Ubuntu runner
+    options.binary_location = "/usr/bin/chromium"
+
+    service = Service(ChromeDriverManager().install())
+
+    return webdriver.Chrome(
+        service=service,
+        options=options
+    )
+
 # ---------------- UTILITIES ----------------
 def scroll_to_bottom(driver, scroll_times=3, pause=1.5):
     for _ in range(scroll_times):
